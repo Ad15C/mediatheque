@@ -36,7 +36,6 @@ pass
 
 
 
-
 """Affichage de la liste des emprunteurs"""
 def liste_emprunteurs(request):
     query = request.GET.get('q', '')  # Récupération de la recherche

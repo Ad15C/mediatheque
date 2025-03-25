@@ -1,22 +1,23 @@
 from django.urls import path
-from mediatheque_project.gestion_mediatheque import (
+from mediatheque_project.gestion_mediatheque.views.views_emprunteur import (
     liste_emprunteurs,
     ajouter_emprunteur,
     modifier_emprunteur
 )
 
-from mediatheque_project.gestion_mediatheque import (
+from mediatheque_project.gestion_mediatheque.views.views_media import (
     affichage_media,
     ajouter_media,
     emprunter_media,
     retourner_media,
 )
 
-from mediatheque_project.gestion_mediatheque import tableau_de_bord_personnel
+from mediatheque_project.gestion_mediatheque.views.views_personnel import tableau_de_bord_personnel
+
 
 urlpatterns = [
     # URLs pour les emprunteurs
-    path('emprunteurs/', liste_emprunteurs, name='liste_emprunteurs'),
+    path('liste-emprunteurs/', liste_emprunteurs, name='liste_emprunteurs'),
     path('emprunteurs/ajouter/', ajouter_emprunteur, name='ajouter_emprunteur'),
     path('emprunteurs/modifier/<int:emprunteur_id>/', modifier_emprunteur, name='modifier_emprunteur'),
 

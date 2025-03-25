@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from mediatheque_project.gestion_mediatheque import Media, Emprunteur
-from mediatheque_project.gestion_mediatheque import MediaForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from mediatheque_project.gestion_mediatheque.models import Media, Emprunteur
+from mediatheque_project.gestion_mediatheque.forms import MediaForm
+
 
 
 @login_required
