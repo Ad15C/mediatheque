@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Liste des médias{% endblock %}
+
+{% block page_content %}
+    <h2>Liste des médias que la médiathèque dispose</h2>
+    <ul>
+        {% for media in medias %}
+            <li>{{ media.name }} - {{ media.type_media }}
+                {% if media.disponible %} Disponible {% else %} Emprunté {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

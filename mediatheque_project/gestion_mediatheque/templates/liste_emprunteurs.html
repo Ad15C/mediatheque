@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Liste des emprunteurs{% endblock %}
+
+{% block page_content %}
+    <h2>Liste des emprunteurs actuels :</h2>
+    <form method="GET" action="{% url 'liste_emprunteurs' %}">
+        <input type="text" name="q" value="{{ query }}" placeholder="Rechercher par un nom ou prénom">
+        <button type="submit">Rechercher</button>
+    </form>
+
+       <table>
+           <tr>
+               <th>Nom</th>
+               <th>Prénom</th>
+               <th>Statut</th>
+               <th>Médias empruntés</th>
+           </tr>
+           {% for emprunteur in emprunteurs %}
+           <tr>
+               <td>{{ emprunteur.nom }}</td>
+               <td>{{ emprunteur.prenom }}</td>
+               <td>{{ 'Bloqué' if emprunteur.bloque else 'Autorisé' }}</td>
+               <td>
+                   {% if emprunteur.emprunts.count > 0 %}
+                       <ul>
+                           {% for media in emprunteur.emprunts.all %}
+                               <li>{{ media.titre }} - {{ media.auteur }}</li>
+                           {% endfor %}
+                       </ul>
+                   {% else %}
+                       Aucun média emprunté
+                   {% endif %}
+               </td>
+           </tr>
+           {% endfor %}
+           {% else %}
+               <tr>
+                   <td colspan="4">Aucun emprunteur trouvé</td>
+               </tr>
+           {% endif %}
+       </table>
+
+
+    <div class="pagination">
+        {% if emprunteurs.has_other_pages %}
+            <span>
+                Page {{ emprunteurs.number }} sur {{ emprunteurs.paginator.num_pages }}
+            </span>
+
+            {% if emprunteurs.has_previous %}
+                <a href="?page={{ emprunteurs.previous_page_number }}&q={{ query }}">Précédent</a>
+            {% endif %}
+
+            {% for num in emprunteurs.paginator.page_range %}
+                {% if num == emprunteurs.number %}
+                    <strong>{{ num }}</strong>
+                {% else %}
+                    <a href="?page={{ num }}&q={{ query }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if emprunteurs.has_next %}
+                <a href="?page={{ emprunteurs.next_page_number }}&q={{ query }}">Suivant</a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
